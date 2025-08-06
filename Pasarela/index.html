@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Metodo de Pago</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="/LogIn/imagenes/logoCakecozzy.png" alt="Logo" class="header-logo"> <!-- Reutiliza tu logo -->
+      <h1>CAKECOZZY</h1>
+    </div>
+
+    <div class="welcome-message">
+      <p>Selecciona tu método de pago favorito para continuar con tu pedido</p>
+    </div>
+
+    <div class="login-content">
+      <div class="logo-section">
+        <img src="/LogIn/imagenes/logoCakecozzy.png" alt="Logo Grande" class="main-logo">
+      </div>
+
+      <div class="form-section">
+        <h2>Metodo de Pago</h2>
+        <form id="paymentForm">
+          <label><input type="radio" name="method" value="efectivo" checked> Efectivo</label><br>
+          <label><input type="radio" name="method" value="nequi"> Nequi</label><br>
+          <label><input type="radio" name="method" value="daviplata"> Daviplata</label><br>
+          <label><input type="radio" name="method" value="pse"> Tarjeta (PSE)</label><br><br>
+
+          <button type="submit" class="google-btn">Pagar</button>
+        </form>
+
+        <div id="result" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

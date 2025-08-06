@@ -1,0 +1,119 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+body {
+    background-color: #f8f0f2;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.login-container {
+    background: linear-gradient(135deg, #FEADB9, #F9E1E0);
+    border: 2px solid #E6A4B4;
+    border-radius: 15px;
+    padding: 25px;
+    width: 90%;
+    max-width: 750px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* --- CABECERA --- */
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+.header-logo {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* --- MENSAJE DE BIENVENIDA --- */
+.welcome-message {
+    border-top: 1px solid #E6A4B4;
+    border-bottom: 1px solid #E6A4B4;
+    padding: 15px 0;
+    margin: 20px 0;
+    color: #555;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.login-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* --- COLUMNA DEL LOGO --- */
+.logo-section {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-logo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+/* --- COLUMNA DEL FORMULARIO --- */
+.form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-section h2 {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* --- BOTÓN DE PAGO --- */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.google-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* --- RESULTADO DEL PAGO --- */
+#result {
+    margin-top: 20px;
+    color: #444;
+    font-size: 1.1em;
+    text-align: center;
+}
