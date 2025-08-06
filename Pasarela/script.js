@@ -1,7 +1,15 @@
-document.getElementById('paymentForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+let selectedMethod = null;
 
-  const method = document.querySelector('input[name="method"]:checked').value;
+// Marcar método seleccionado visualmente
+document.querySelectorAll('.payment-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedMethod = card.dataset.method;
+  });
+});
+
+document.getElementById('confirmBtn').addEventListener('click', function () {
   const userId = localStorage.getItem('userId') || null;
 
   if (!userId) {
@@ -9,30 +17,46 @@ document.getElementById('paymentForm').addEventListener('submit', function(e) {
     return;
   }
 
-  switch (method) {
+  if (!selectedMethod) {
+    alert("Por favor selecciona un método de pago.");
+    return;
+  }
+
+  const result = document.getElementById('result');
+  result.innerHTML = ''; // Limpiar contenido anterior
+
+  switch (selectedMethod) {
     case 'efectivo':
       const refCode = 'REF-' + Math.floor(100000 + Math.random() * 900000);
-      document.getElementById('result').innerHTML = `
+      result.innerHTML = `
         <h3>Pago en efectivo</h3>
         <p>Tu código de pago es: <strong>${refCode}</strong></p>
         <p>Entrégalo al repartidor.</p>`;
       break;
 
     case 'nequi':
-      window.location.href = 'https://wa.me/573001112233?text=Quiero%20pagar%20mi%20pedido%20por%20Nequi';
+      result.innerHTML = `
+        <h3>Paga con Nequi</h3>
+        <p>Escanea el siguiente código QR para realizar tu pago:</p>
+        <img src="/Pasarela/img/QR.jpeg" alt="QR Nequi" style="max-width: 200px;">`;
       break;
 
     case 'daviplata':
-      window.location.href = 'https://wa.me/573001112244?text=Quiero%20pagar%20mi%20pedido%20por%20Daviplata';
+      result.innerHTML = `
+        <h3>Paga con Daviplata</h3>
+        <p>Escanea el siguiente código QR para realizar tu pago:</p>
+        <img src="/Pasarela/img/QR.jpeg" alt="QR Daviplata" style="max-width: 200px;">`;
       break;
 
-    case 'pse':
-      const dummyUrl = 'https://sandbox.pse.com.co/payment/confirm?ref=' + Math.floor(100000 + Math.random() * 900000);
-      window.location.href = dummyUrl;
+    case 'pse': // Ahora es Datafono
+      const dataphoneCode = Math.floor(100000 + Math.random() * 900000);
+      result.innerHTML = `
+        <h3>Paga con Datafono</h3>
+        <p>Ingresa este código en el datáfono:</p>
+        <p><strong>${dataphoneCode}</strong></p>`;
       break;
   }
 });
 
 // Simulación de sesión iniciada
 localStorage.setItem("userId", "123");
-    

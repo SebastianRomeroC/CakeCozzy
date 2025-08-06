@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Metodo de Pago</title>
+  <title>Pasarela de Pago</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="login-container">
     <div class="login-header">
-      <img src="/LogIn/imagenes/logoCakecozzy.png" alt="Logo" class="header-logo"> <!-- Reutiliza tu logo -->
+      <img src="/LogIn/imagenes/logoCakecozzy.png" alt="Logo" class="header-logo">
       <h1>CAKECOZZY</h1>
     </div>
 
@@ -17,25 +17,27 @@
       <p>Selecciona tu método de pago favorito para continuar con tu pedido</p>
     </div>
 
-    <div class="login-content">
-      <div class="logo-section">
-        <img src="/LogIn/imagenes/logoCakecozzy.png" alt="Logo Grande" class="main-logo">
+    <div class="payment-options">
+      <div class="payment-card" data-method="efectivo">
+        <img src="/Pasarela/img/money.png" alt="Efectivo">
+        <span>Efectivo</span>
       </div>
-
-      <div class="form-section">
-        <h2>Metodo de Pago</h2>
-        <form id="paymentForm">
-          <label><input type="radio" name="method" value="efectivo" checked> Efectivo</label><br>
-          <label><input type="radio" name="method" value="nequi"> Nequi</label><br>
-          <label><input type="radio" name="method" value="daviplata"> Daviplata</label><br>
-          <label><input type="radio" name="method" value="pse"> Tarjeta (PSE)</label><br><br>
-
-          <button type="submit" class="google-btn">Pagar</button>
-        </form>
-
-        <div id="result" style="margin-top: 20px;"></div>
+      <div class="payment-card" data-method="nequi">
+        <img src="/Pasarela/img/nequi.jpeg" alt="Nequi">
+        <span>Nequi</span>
+      </div>
+      <div class="payment-card" data-method="daviplata">
+        <img src="/Pasarela/img/davi.jpeg" alt="Daviplata">
+        <span>Daviplata</span>
+      </div>
+      <div class="payment-card" data-method="pse">
+        <img src="/Pasarela/img/wallet.png" alt="PSE">
+        <span>Pago con Datafono</span>
       </div>
     </div>
+
+    <button id="confirmBtn" class="google-btn">Confirmar pago</button>
+    <div id="result"></div>
   </div>
 
   <script src="script.js"></script>
