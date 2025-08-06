@@ -1,0 +1,123 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+body {
+    /* EXPLICACIÓN: Le damos un color de fondo suave a toda la página para que resalte el cuadro. */
+    background-color: #f8f0f2;
+    /* Usamos la fuente 'Quicksand' que importamos. Si no carga, usa sans-serif. */
+    font-family: 'Quicksand', sans-serif;
+    /* Centramos el contenedor de login vertical y horizontalmente en la página. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.login-container {
+    /* EXPLICACIÓN: Estos son los colores del contenedor principal.
+       Puedes cambiar #FFDDE1 (rosa claro) y #E6A4B4 (rosa oscuro) por los que prefieras. */
+    background: linear-gradient(135deg, #FEADB9, #F9E1E0);
+    border: 2px solid #E6A4B4;
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 25px;
+    width: 90%;
+    max-width: 750px; /* Ancho máximo para que no se estire demasiado en pantallas grandes */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* --- CABECERA --- */
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el título 'CAKECOZZY' */
+    position: relative; /* Necesario para posicionar el logo pequeño */
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+/* EXPLICACIÓN: Estilo para el logo pequeño de la cabecera. */
+.header-logo {
+    width: 60px;
+    height: 60px;
+    /* Lo posicionamos en la esquina superior izquierda del header */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Lo centramos verticalmente */
+}
+
+/* --- MENSAJE DE BIENVENIDA --- */
+.welcome-message {
+    /* EXPLICACIÓN: Las líneas arriba y abajo del mensaje de bienvenida. */
+    border-top: 1px solid #E6A4B4;
+    border-bottom: 1px solid #E6A4B4;
+    padding: 15px 0;
+    margin: 20px 0;
+    color: #555;
+}
+
+/* --- CONTENIDO PRINCIPAL (LOGO Y FORMULARIO) --- */
+.login-content {
+    display: flex; /* Usamos Flexbox para crear las dos columnas */
+    align-items: center; /* Alineamos verticalmente los items */
+    gap: 20px; /* Espacio entre las dos columnas */
+}
+
+/* --- COLUMNA DEL LOGO GRANDE --- */
+.logo-section {
+    flex: 1; /* Hace que esta columna ocupe la mitad del espacio disponible */
+    padding: 20px;
+}
+
+/* EXPLICACIÓN: Estilo para el logo grande. */
+.main-logo {
+    width: 100%;
+    max-width: 300px; /* Tamaño máximo del logo */
+    height: auto;
+}
+
+/* --- COLUMNA DEL FORMULARIO --- */
+.form-section {
+    flex: 1; /* Hace que esta columna ocupe la otra mitad del espacio */
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center;
+    justify-content: center;
+}
+
+.form-section h2 {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* --- BOTÓN DE GOOGLE --- */
+.google-btn {
+    display: flex; /* Para alinear el logo y el texto dentro del botón */
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer; /* Cambia el cursor a una manito al pasar por encima */
+    transition: background-color 0.3s; /* Efecto suave al pasar el mouse */
+}
+
+.google-btn:hover {
+    background-color: #f5f5f5; /* Color ligeramente gris al pasar el mouse */
+}
+
+.google-btn img {
+    width: 20px;
+    margin-right: 12px; /* Espacio entre el logo de Google y el texto */
+}
