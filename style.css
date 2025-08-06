@@ -1,0 +1,129 @@
+/* General */
+body {
+    font-family: Arial, sans-serif; /* Define la fuente general para la página */
+    margin: 0; /* Elimina los márgenes predeterminados del navegador */
+    padding: 0; /* Elimina los rellenos predeterminados */
+    box-sizing: border-box; /* Asegura que el padding y los bordes se incluyan en el tamaño total del elemento */
+    background-color: #f4f4f4; /* Fondo gris claro para toda la página */
+}
+
+/* Encabezado */
+header {
+    background-color: #00509e; /* Color de fondo azul del encabezado */
+    color: #fff; /* Texto blanco para contraste */
+    padding: 10px 20px; /* Espaciado interno del encabezado */
+}
+
+.logo-container {
+    display: flex; /* Flexbox para alinear elementos en fila */
+    align-items: center; /* Centra los elementos verticalmente */
+}
+
+.logo {
+    width: 50px; /* Ancho del logo */
+    margin-right: 10px; /* Espaciado a la derecha del logo */
+}
+
+/* Barra de navegación */
+.nav-links {
+    list-style: none; /* Elimina los puntos de las listas */
+    display: flex; /* Muestra los elementos en fila */
+    justify-content: flex-end; /* Alinea los enlaces al final */
+    padding: 0; /* Elimina el padding de la lista */
+    margin: 0; /* Elimina el margen de la lista */
+}
+
+.nav-links li {
+    margin: 0 10px; /* Espaciado entre los elementos de la lista */
+}
+
+.nav-links a {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    color: #fff; /* Color de los enlaces en blanco */
+    font-weight: bold; /* Resalta los enlaces */
+}
+
+/* Secciones */
+.section {
+    padding: 20px; /* Espaciado interno para las secciones */
+    margin: 20px; /* Espaciado externo para separar las secciones */
+    background-color: #fff; /* Fondo blanco para contraste */
+    border-radius: 8px; /* Esquinas redondeadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar */
+}
+
+/* Formularios */
+form input, form select, form button {
+    display: block; /* Cada elemento ocupa una línea completa */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    margin-bottom: 15px; /* Espaciado entre campos */
+    padding: 10px; /* Espaciado interno en los campos */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 4px; /* Esquinas redondeadas */
+}
+
+/* Botones */
+button {
+    background-color: #00509e; /* Fondo azul para los botones */
+    color: #fff; /* Texto blanco para contraste */
+    border: none; /* Elimina el borde */
+    border-radius: 4px; /* Esquinas redondeadas */
+    padding: 10px 20px; /* Espaciado interno */
+    cursor: pointer; /* Muestra un puntero para indicar clic */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+}
+
+button:hover {
+    background-color: #003f7d; /* Fondo más oscuro al pasar el cursor */
+}
+
+/* Tablas */
+table {
+    width: 100%; /* Tabla ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Elimina los espacios entre celdas */
+    margin-top: 20px; /* Espaciado superior */
+}
+
+table th, table td {
+    border: 1px solid #ddd; /* Bordes gris claro */
+    padding: 8px; /* Espaciado interno en celdas */
+    text-align: left; /* Alineación de texto a la izquierda */
+}
+
+table th {
+    background-color: #00509e; /* Fondo azul para encabezados */
+    color: #fff; /* Texto blanco para contraste */
+}
+
+/* Tarjetas de equipos */
+#teamCardsContainer {
+    display: flex; /* Flexbox para las tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
+    gap: 15px; /* Espaciado entre tarjetas */
+}
+
+.team-card {
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 8px; /* Esquinas redondeadas */
+    padding: 15px; /* Espaciado interno */
+    width: 200px; /* Ancho fijo para las tarjetas */
+    text-align: center; /* Texto centrado */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.team-card img {
+    max-width: 100%; /* La imagen no excede el ancho de la tarjeta */
+    border-radius: 50%; /* Hace que la imagen sea circular */
+}
+
+/* Pie de página */
+footer {
+    text-align: center; /* Centra el texto del pie de página */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #00509e; /* Fondo azul */
+    color: #fff; /* Texto blanco */
+    margin-top: 20px; /* Espaciado superior */
+}
+
