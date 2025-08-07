@@ -1,0 +1,66 @@
+/* Estilo general del fondo y fuente */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fcd6e0;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Buscador centrado */
+.buscador-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.buscador-container input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* Grid responsive para los postres */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Tarjeta individual de postre */
+.tarjeta {
+  background-color: #fff;
+  border: 2px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.tarjeta p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Estilo para el logo en la esquina superior izquierda */
+.logo {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 100px; /* Ajusta el tamaño si es necesario */
+  height: auto;
+  z-index: 1000; /* Asegura que esté por encima del contenido */
+}
