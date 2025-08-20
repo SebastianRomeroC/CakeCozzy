@@ -1,0 +1,36 @@
+{
+  "homeTitle": "🏠 Accueil",
+  "hello": "Bonjour",
+  "logout": "Se déconnecter",
+  "loading": "Chargement...",
+
+  "register": "S'inscrire",
+  "login": "Se connecter",
+  "welcome": "Bienvenue",
+  "user": "utilisateur",
+
+  "name": "Nom",
+  "namePlaceholder": "Votre nom",
+  "maritalStatus": "État civil",
+  "selectMarital": "Sélectionner…",
+  "single": "Célibataire",
+  "married": "Marié(e)",
+  "cohabiting": "Union libre",
+  "divorced": "Divorcé(e)",
+  "widowed": "Veuf/Veuve",
+  "other": "Autre",
+
+  "email": "E-mail",
+  "emailPlaceholder": "email@exemple.com",
+  "password": "Mot de passe",
+  "passwordPlaceholder": "Minimum 6 caractères",
+
+  "signIn": "Se connecter",
+  "signInWithGoogle": "Se connecter avec Google",
+  "alreadyAccount": "Vous avez déjà un compte ? Connectez-vous",
+  "noAccount": "Pas de compte ? Inscrivez-vous",
+
+  "requiredName": "Le nom est obligatoire.",
+  "requiredMarital": "Veuillez sélectionner votre état civil.",
+  "passwordMin": "Le mot de passe doit contenir au moins 6 caractères."
+}

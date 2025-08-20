@@ -1,0 +1,196 @@
+/* Contenedor principal centrado */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fce4ec; /* Rosa pastel claro */
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Tarjeta del formulario */
+.login-card {
+  background: #fff0f6; /* Rosa pastel más claro */
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 420px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Selector de idioma */
+.language-switcher {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.language-switcher button {
+  border: none;
+  background: #f8bbd0;
+  color: #ad1457;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.language-switcher button:hover {
+  background: #f48fb1;
+  color: #fff;
+}
+
+.language-switcher button.active {
+  background: #ad1457;
+  color: #fff;
+}
+
+/* Título del login/registro */
+.login-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #ad1457;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.login-form label {
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  color: #880e4f;
+}
+
+/* Inputs y Select */
+.login-form input,
+.login-form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  border: 1px solid #f48fb1;
+  background: #fff0f6;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+  border-color: #f06292;
+  box-shadow: 0 0 5px rgba(240, 98, 146, 0.5);
+  outline: none;
+}
+
+/* Botones principales */
+.primary-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: #f06292;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.primary-btn:hover {
+  background: #ec407a;
+  transform: translateY(-2px);
+}
+
+/* Botón tipo link */
+.link-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ad1457;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.link-btn:hover {
+  color: #880e4f;
+}
+
+/* Botón Google */
+.google-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.google-btn:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+/* Mensajes de error */
+.error-msg {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Mensaje de bienvenida */
+.welcome-msg {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #ad1457;
+  font-weight: 500;
+}
+
+/* Botón logout */
+.logout-btn {
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #f06292;
+  background: #fff0f6;
+  color: #f06292;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #f06292;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.login-logo {
+  width: 100px;
+  height: auto;
+}

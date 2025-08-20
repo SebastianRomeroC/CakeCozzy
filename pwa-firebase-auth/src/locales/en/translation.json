@@ -1,0 +1,36 @@
+{
+  "homeTitle": "🏠 Home",
+  "hello": "Hello",
+  "logout": "Log out",
+  "loading": "Loading...",
+
+  "register": "Register",
+  "login": "Login",
+  "welcome": "Welcome",
+  "user": "user",
+
+  "name": "Name",
+  "namePlaceholder": "Your name",
+  "maritalStatus": "Marital Status",
+  "selectMarital": "Select…",
+  "single": "Single",
+  "married": "Married",
+  "cohabiting": "Cohabiting",
+  "divorced": "Divorced",
+  "widowed": "Widowed",
+  "other": "Other",
+
+  "email": "Email",
+  "emailPlaceholder": "email@example.com",
+  "password": "Password",
+  "passwordPlaceholder": "Minimum 6 characters",
+
+  "signIn": "Sign in",
+  "signInWithGoogle": "Sign in with Google",
+  "alreadyAccount": "Already have an account? Login",
+  "noAccount": "Don't have an account? Register",
+
+  "requiredName": "Name is required.",
+  "requiredMarital": "Please select your marital status.",
+  "passwordMin": "Password must be at least 6 characters."
+}

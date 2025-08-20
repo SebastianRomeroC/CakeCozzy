@@ -1,0 +1,177 @@
+/* Payment.css */
+
+/* Contenedor principal */
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #fdecef;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor de la pasarela */
+.payment-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #fff0f5;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Header: logo y nombre vertical */
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Logo y nombre centrados verticalmente */
+.logo-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo */
+.header-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Nombre de la empresa */
+.logo-name h1 {
+  color: #d63384;
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Botones a la derecha */
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: auto; /* empuja los botones a la derecha */
+}
+
+/* Botones estilo */
+.btn-home,
+.btn-logout {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Botón Home */
+.btn-home {
+  background: linear-gradient(135deg, #f8bcd0, #fcd6e0);
+  color: #333;
+}
+
+.btn-home:hover {
+  background: linear-gradient(135deg, #f59fc2, #f8bcd0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Botón Cerrar sesión */
+.btn-logout {
+  background: linear-gradient(135deg, #f56565, #f77c7c);
+  color: white;
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, #e53e3e, #f56565);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Mensaje de bienvenida */
+.welcome-message p {
+  color: #444;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Tarjetas de pago */
+.payment-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.payment-card {
+  background-color: #ffe4ec;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  width: 120px;
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.payment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.payment-card.selected {
+  border: 2px solid #d63384;
+  background-color: #ffd6e8;
+}
+
+.payment-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 8px;
+}
+
+.payment-card span {
+  display: block;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Botón Confirmar pago */
+.google-btn {
+  background-color: #d63384;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn:hover {
+  background-color: #b61f6c;
+}
+
+/* Resultado del pago */
+#result {
+  margin-top: 20px;
+  color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .header-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0;
+    align-items: center;
+  }
+}

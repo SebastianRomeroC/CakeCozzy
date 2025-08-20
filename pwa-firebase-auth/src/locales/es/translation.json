@@ -1,0 +1,36 @@
+{
+  "homeTitle": "🏠 Inicio",
+  "hello": "Hola",
+  "logout": "Cerrar sesión",
+  "loading": "Cargando...",
+
+  "register": "Registrarse",
+  "login": "Iniciar sesión",
+  "welcome": "Bienvenido",
+  "user": "usuario",
+
+  "name": "Nombre",
+  "namePlaceholder": "Tu nombre",
+  "maritalStatus": "Estado Civil",
+  "selectMarital": "Seleccione…",
+  "single": "Soltero/a",
+  "married": "Casado/a",
+  "cohabiting": "Unión libre",
+  "divorced": "Divorciado/a",
+  "widowed": "Viudo/a",
+  "other": "Otro",
+
+  "email": "Correo Electrónico",
+  "emailPlaceholder": "correo@dominio.com",
+  "password": "Contraseña",
+  "passwordPlaceholder": "Mínimo 6 caracteres",
+
+  "signIn": "Ingresar",
+  "signInWithGoogle": "Iniciar sesión con Google",
+  "alreadyAccount": "¿Ya tienes cuenta? Inicia sesión",
+  "noAccount": "¿No tienes cuenta? Regístrate",
+
+  "requiredName": "El nombre es obligatorio.",
+  "requiredMarital": "Selecciona tu estado civil.",
+  "passwordMin": "La contraseña debe tener al menos 6 caracteres."
+}
