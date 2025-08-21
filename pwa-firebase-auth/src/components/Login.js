@@ -18,12 +18,18 @@ const Login = () => {
   const [maritalStatus, setMaritalStatus] = useState("");
   const [error, setError] = useState(null);
 
-  // Mantener idioma de localStorage al cargar la página
+  // Redirige automáticamente al home si ya hay un usuario logueado
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userId", user.uid);
+      navigate("/home", { replace: true }); // replace evita que el usuario vuelva a /login con el back
+    }
+  }, [user, navigate]);
+
+  // Mantener idioma de localStorage
   useEffect(() => {
     const savedLang = localStorage.getItem("language");
-    if (savedLang && i18n.language !== savedLang) {
-      i18n.changeLanguage(savedLang);
-    }
+    if (savedLang && i18n.language !== savedLang) i18n.changeLanguage(savedLang);
   }, [i18n]);
 
   const handleLanguageChange = (lng) => {
@@ -43,18 +49,30 @@ const Login = () => {
       } else {
         await loginWithEmail(email, password);
       }
-      navigate("/home"); // Redirige a Home después del login
+      // No se necesita navigate aquí, lo hace el useEffect
     } catch (err) {
       setError(err.message);
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setError(null);
+    try {
+      await loginWithGoogle();
+      // La redirección la hace el useEffect
+    } catch (err) {
+      setError(err.message || "Error al iniciar sesión con Google");
+    }
+  };
+
   if (loading) return <div className="login-container">Cargando…</div>;
+
+  // Si el usuario ya existe, no renderiza el login
+  if (user) return null;
 
   return (
     <div className="login-container">
       <div className="login-card">
-        {/* Language Switcher */}
         <div className="language-switcher">
           <button onClick={() => handleLanguageChange("en")} className={i18n.language === "en" ? "active" : ""}>🇬🇧</button>
           <button onClick={() => handleLanguageChange("es")} className={i18n.language === "es" ? "active" : ""}>🇪🇸</button>
@@ -67,46 +85,42 @@ const Login = () => {
 
         <h2 className="login-title">{isRegistering ? t("register", { defaultValue: "Registrarse" }) : t("login", { defaultValue: "Iniciar sesión" })}</h2>
 
-        {user ? (
-          <div className="welcome-msg">
-            {t("welcome", { defaultValue: "Bienvenido" })}, {user.displayName || user.email?.split("@")[0] || t("user", { defaultValue: "usuario" })}
-            <button onClick={logout} className="logout-btn">{t("logout", { defaultValue: "Cerrar sesión" })}</button>
-          </div>
-        ) : (
-          <form onSubmit={handleAuth} className="login-form">
-            {isRegistering && (
-              <>
-                <label>{t("name", { defaultValue: "Nombre" })}</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("namePlaceholder", { defaultValue: "Tu nombre" })} />
+        <form onSubmit={handleAuth} className="login-form">
+          {isRegistering && (
+            <>
+              <label>{t("name", { defaultValue: "Nombre" })}</label>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("namePlaceholder", { defaultValue: "Tu nombre" })} />
 
-                <label>{t("maritalStatus", { defaultValue: "Estado Civil" })}</label>
-                <select value={maritalStatus} onChange={(e) => setMaritalStatus(e.target.value)}>
-                  <option value="">{t("selectMarital", { defaultValue: "Seleccione…" })}</option>
-                  <option value="single">{t("single", { defaultValue: "Soltero/a" })}</option>
-                  <option value="married">{t("married", { defaultValue: "Casado/a" })}</option>
-                  <option value="cohabiting">{t("cohabiting", { defaultValue: "Unión libre" })}</option>
-                  <option value="divorced">{t("divorced", { defaultValue: "Divorciado/a" })}</option>
-                  <option value="widowed">{t("widowed", { defaultValue: "Viudo/a" })}</option>
-                  <option value="other">{t("other", { defaultValue: "Otro" })}</option>
-                </select>
-              </>
-            )}
+              <label>{t("maritalStatus", { defaultValue: "Estado Civil" })}</label>
+              <select value={maritalStatus} onChange={(e) => setMaritalStatus(e.target.value)}>
+                <option value="">{t("selectMarital", { defaultValue: "Seleccione…" })}</option>
+                <option value="single">{t("single", { defaultValue: "Soltero/a" })}</option>
+                <option value="married">{t("married", { defaultValue: "Casado/a" })}</option>
+                <option value="cohabiting">{t("cohabiting", { defaultValue: "Unión libre" })}</option>
+                <option value="divorced">{t("divorced", { defaultValue: "Divorciado/a" })}</option>
+                <option value="widowed">{t("widowed", { defaultValue: "Viudo/a" })}</option>
+                <option value="other">{t("other", { defaultValue: "Otro" })}</option>
+              </select>
+            </>
+          )}
 
-            <label>{t("email", { defaultValue: "Correo Electrónico" })}</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("emailPlaceholder", { defaultValue: "correo@dominio.com" })} />
+          <label>{t("email", { defaultValue: "Correo Electrónico" })}</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("emailPlaceholder", { defaultValue: "correo@dominio.com" })} />
 
-            <label>{t("password", { defaultValue: "Contraseña" })}</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("passwordPlaceholder", { defaultValue: "Mínimo 6 caracteres" })} />
+          <label>{t("password", { defaultValue: "Contraseña" })}</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("passwordPlaceholder", { defaultValue: "Mínimo 6 caracteres" })} />
 
-            {error && <div className="error-msg">{error}</div>}
+          {error && <div className="error-msg">{error}</div>}
 
-            <button type="submit" className="primary-btn">{isRegistering ? t("register") : t("signIn", { defaultValue: "Ingresar" })}</button>
-            <button type="button" className="link-btn" onClick={() => setIsRegistering(!isRegistering)}>
-              {isRegistering ? t("alreadyAccount", { defaultValue: "¿Ya tienes cuenta? Inicia sesión" }) : t("noAccount", { defaultValue: "¿No tienes cuenta? Regístrate" })}
-            </button>
-            <button type="button" onClick={loginWithGoogle} className="google-btn">{t("signInWithGoogle", { defaultValue: "Iniciar sesión con Google" })}</button>
-          </form>
-        )}
+          <button type="submit" className="primary-btn">{isRegistering ? t("register") : t("signIn", { defaultValue: "Ingresar" })}</button>
+          <button type="button" className="link-btn" onClick={() => setIsRegistering(!isRegistering)}>
+            {isRegistering ? t("alreadyAccount", { defaultValue: "¿Ya tienes cuenta? Inicia sesión" }) : t("noAccount", { defaultValue: "¿No tienes cuenta? Regístrate" })}
+          </button>
+
+          <button type="button" onClick={handleGoogleLogin} className="google-btn">
+            {t("signInWithGoogle", { defaultValue: "Iniciar sesión con Google" })}
+          </button>
+        </form>
       </div>
     </div>
   );
