@@ -12,7 +12,7 @@ body {
   padding-top: 80px; /* espacio para header fijo */
 }
 
-/* Header: logo a la izquierda y botones a la derecha */
+/* Header fijo con logo a la izquierda y acciones a la derecha */
 .home-header {
   position: fixed;
   top: 15px;
@@ -31,16 +31,67 @@ body {
   height: auto;
 }
 
-/* Botones en header */
-.header-buttons {
+/* Contenedor de acciones (carrito + logout) */
+.header-right {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Botones en header - estilo moderno */
-.btn-logout,
-.btn-pago {
-  padding: 10px 25px;
+/* ---------------------- */
+/* 🔹 Carrito como ícono */
+/* ---------------------- */
+.icon-btn {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.icon-btn:focus {
+  outline: 2px solid rgba(255, 136, 160, 0.4);
+  outline-offset: 2px;
+}
+
+.icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 136, 160, 0.25);
+}
+
+/* Icono carrito (rosa pastel) */
+.cart-icon {
+  display: block;
+  fill: #d63384;
+  width: 26px;
+  height: 26px;
+}
+
+/* Badge del carrito */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 9999px;
+  background: #ff4d6d;
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* ---------------------- */
+/* 🔹 Botón logout */
+/* ---------------------- */
+.btn-logout {
+  padding: 10px 20px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
@@ -48,31 +99,19 @@ body {
   font-size: 15px;
   transition: all 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-}
-
-/* Logout: degradado rosa a rojo */
-.btn-logout {
   background: linear-gradient(135deg, #f56565, #f77c7c);
   color: white;
 }
+
 .btn-logout:hover {
   background: linear-gradient(135deg, #e53e3e, #f56565);
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 6px 12px rgba(0,0,0,0.18);
 }
 
-/* Pasarela de pago: degradado rosa pastel a rosa claro */
-.btn-pago {
-  background: linear-gradient(135deg, #f8bcd0, #fcd6e0);
-  color: #333;
-}
-.btn-pago:hover {
-  background: linear-gradient(135deg, #f59fc2, #f8bcd0);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
-}
-
-/* Buscador centrado */
+/* ---------------------- */
+/* 🔹 Buscador */
+/* ---------------------- */
 .buscador-container {
   text-align: center;
   margin-bottom: 30px;
@@ -93,7 +132,9 @@ body {
   box-shadow: 0 0 10px rgba(255, 136, 160, 0.3);
 }
 
-/* Grid de tarjetas */
+/* ---------------------- */
+/* 🔹 Grid de tarjetas */
+/* ---------------------- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -102,7 +143,6 @@ body {
   margin: 0 auto;
 }
 
-/* Tarjeta individual */
 .tarjeta {
   background-color: #fff;
   border: 2px solid #f7a8b8;
@@ -131,7 +171,33 @@ body {
   font-size: 16px;
 }
 
-/* Responsivo para móviles */
+/* ---------------------- */
+/* 🔹 Botón Agregar al carrito */
+/* ---------------------- */
+.btn-add-cart {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: #d63384;
+  background: linear-gradient(135deg, #f8bcd0, #fcd6e0);
+  box-shadow: 0 4px 8px rgba(255, 136, 160, 0.3);
+  transition: all 0.3s ease, transform 0.2s ease;
+  width: 90%;
+}
+
+.btn-add-cart:hover {
+  background: linear-gradient(135deg, #f59fc2, #f8bcd0);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(255, 136, 160, 0.4);
+}
+
+/* ---------------------- */
+/* 🔹 Responsivo */
+/* ---------------------- */
 @media (max-width: 600px) {
   .buscador-container input {
     width: 90%;
@@ -145,13 +211,25 @@ body {
     align-items: flex-start;
     padding: 10px 20px;
   }
-  .header-buttons {
+  .header-right {
     width: 100%;
     justify-content: flex-start;
     gap: 10px;
   }
-  .btn-logout,
-  .btn-pago {
+  .btn-logout {
     flex: 1;
+  }
+  .badge {
+    top: -4px;
+    right: -4px;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 11px;
+  }
+  .btn-add-cart {
+    font-size: 13px;
+    padding: 8px 16px;
+    width: 100%;
   }
 }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Payment from "./components/Payment";
+import Cart from "./components/Cart";
 import AuthForm from "./components/AuthForm";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./i18n";
@@ -22,6 +23,9 @@ function App() {
 
         {/*Pagos */}
         <Route path="/pago" element={<Payment />} />
+
+        {/*Carrito */}
+        <Route path="/carrito" element={<Cart />} />
       </Routes>
     </Router>
   );
