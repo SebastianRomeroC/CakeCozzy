@@ -49,7 +49,6 @@ const Login = () => {
       } else {
         await loginWithEmail(email, password);
       }
-      // No se necesita navigate aquí, lo hace el useEffect
     } catch (err) {
       setError(err.message);
     }
