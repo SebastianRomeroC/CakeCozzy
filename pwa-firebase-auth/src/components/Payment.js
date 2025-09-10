@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// src/components/Payment.js
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../firebase";
+import mapboxgl from "mapbox-gl";
 import "../style/Payment.css";
 
-// Importar imágenes
 import logo from "../img/logoCakecozzy.png";
 import moneyImg from "../img/money.png";
 import nequiImg from "../img/nequi.jpeg";
@@ -11,86 +12,127 @@ import daviImg from "../img/davi.jpeg";
 import walletImg from "../img/wallet.png";
 import qrImg from "../img/QR.jpeg";
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+
 const Payment = () => {
+  const { orderId } = useParams();
   const navigate = useNavigate();
+  const mapContainerRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [marker, setMarker] = useState(null);
+  const [coords, setCoords] = useState(null);
+
+  const [order, setOrder] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [result, setResult] = useState("");
-  const [total, setTotal] = useState(0); // <-- total del carrito
 
-  // Cargar total del carrito desde localStorage
+  // Cargar la orden
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const sumaTotal = items.reduce(
-      (acc, item) => acc + (item.precio || 0) * (item.quantity || 1),
-      0
-    );
-    setTotal(sumaTotal);
-  }, []);
+    if (!orderId) return;
+    fetch(`${API_BASE}/api/orders/${orderId}`)
+      .then(res => res.json())
+      .then(data => setOrder(data))
+      .catch(err => console.error("Error cargando la orden:", err));
+  }, [orderId]);
 
-  // Simulación de sesión iniciada
+  // Inicializar mapa
   useEffect(() => {
-    localStorage.setItem("userId", "123");
-  }, []);
+    if (!order || !mapContainerRef.current) return;
 
-  const handleConfirm = () => {
-    const userId = localStorage.getItem("userId") || null;
+    const initialCoords = order.location?.coordinates || [-74.08175, 4.60971];
 
-    if (!userId) {
-      alert("Debes iniciar sesión para continuar.");
-      return;
-    }
+    const initMap = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: initialCoords,
+      zoom: 14,
+    });
 
-    if (!selectedMethod) {
-      alert("Por favor selecciona un método de pago.");
-      return;
-    }
+    // Marker draggable
+    const newMarker = new mapboxgl.Marker({ draggable: true, color: "#ff4081" })
+      .setLngLat(initialCoords)
+      .addTo(initMap);
 
-    switch (selectedMethod) {
-      case "efectivo": {
-        const refCode = "REF-" + Math.floor(100000 + Math.random() * 900000);
-        setResult(
-          <div>
-            <h3>Pago en efectivo</h3>
-            <p>Total a pagar: <strong>$ {total.toLocaleString()}</strong></p>
-            <p>Tu código de pago es: <strong>{refCode}</strong></p>
-            <p>Entrégalo al repartidor.</p>
-          </div>
-        );
-        break;
+    setMarker(newMarker);
+    setCoords({ lng: initialCoords[0], lat: initialCoords[1] });
+
+    // Actualizar coords mientras arrastras
+    newMarker.on("drag", () => {
+      const lngLat = newMarker.getLngLat();
+      setCoords({ lng: lngLat.lng, lat: lngLat.lat });
+    });
+
+    // Click en mapa mueve marker
+    initMap.on("click", (e) => {
+      const { lng, lat } = e.lngLat;
+      newMarker.setLngLat([lng, lat]);
+      setCoords({ lng, lat });
+    });
+
+    setMap(initMap);
+    return () => initMap.remove();
+  }, [order]);
+
+  const handleConfirm = async () => {
+    if (!selectedMethod) return alert("Selecciona un método de pago");
+    if (!coords) return alert("Selecciona la ubicación en el mapa");
+
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/${orderId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          metodoPago: selectedMethod,
+          location: { coordinates: [coords.lng, coords.lat] },
+        }),
+      });
+
+      if (!res.ok) throw new Error("Error actualizando la orden");
+      const updatedOrder = await res.json();
+      setOrder(updatedOrder);
+
+      const totalFormatted = updatedOrder.total.toLocaleString();
+      switch (selectedMethod) {
+        case "efectivo":
+          const refCode = "REF-" + Math.floor(100000 + Math.random() * 900000);
+          setResult(
+            <div>
+              <h3>Pago en efectivo</h3>
+              <p>Total a pagar: <strong>$ {totalFormatted}</strong></p>
+              <p>Código de pago: <strong>{refCode}</strong></p>
+              <p>Entrégalo al repartidor en {updatedOrder.direccion}</p>
+            </div>
+          );
+          break;
+        case "nequi":
+        case "daviplata":
+          setResult(
+            <div>
+              <h3>Pago con {selectedMethod.charAt(0).toUpperCase() + selectedMethod.slice(1)}</h3>
+              <p>Total a pagar: <strong>$ {totalFormatted}</strong></p>
+              <p>Dirección: <strong>{updatedOrder.direccion}</strong></p>
+              <img src={qrImg} alt={`QR ${selectedMethod}`} style={{ maxWidth: "200px" }} />
+            </div>
+          );
+          break;
+        case "pse":
+          const code = Math.floor(100000 + Math.random() * 900000);
+          setResult(
+            <div>
+              <h3>Pago con Datáfono</h3>
+              <p>Total a pagar: <strong>$ {totalFormatted}</strong></p>
+              <p>Dirección: <strong>{updatedOrder.direccion}</strong></p>
+              <p>Ingresa este código en el datáfono: <strong>{code}</strong></p>
+            </div>
+          );
+          break;
+        default:
+          setResult("");
       }
-      case "nequi":
-        setResult(
-          <div>
-            <h3>Paga con Nequi</h3>
-            <p>Total a pagar: <strong>$ {total.toLocaleString()}</strong></p>
-            <p>Escanea el siguiente código QR para realizar tu pago:</p>
-            <img src={qrImg} alt="QR Nequi" style={{ maxWidth: "200px" }} />
-          </div>
-        );
-        break;
-      case "daviplata":
-        setResult(
-          <div>
-            <h3>Paga con Daviplata</h3>
-            <p>Total a pagar: <strong>$ {total.toLocaleString()}</strong></p>
-            <p>Escanea el siguiente código QR para realizar tu pago:</p>
-            <img src={qrImg} alt="QR Daviplata" style={{ maxWidth: "200px" }} />
-          </div>
-        );
-        break;
-      case "pse":
-        const dataphoneCode = Math.floor(100000 + Math.random() * 900000);
-        setResult(
-          <div>
-            <h3>Paga con Datafono</h3>
-            <p>Total a pagar: <strong>$ {total.toLocaleString()}</strong></p>
-            <p>Ingresa este código en el datáfono:</p>
-            <p><strong>{dataphoneCode}</strong></p>
-          </div>
-        );
-        break;
-      default:
-        setResult("");
+    } catch (err) {
+      console.error(err);
+      alert("Error procesando la orden");
     }
   };
 
@@ -98,10 +140,9 @@ const Payment = () => {
     await logout();
     navigate("/login");
   };
+  const goHome = () => navigate("/home");
 
-  const goHome = () => {
-    navigate("/home");
-  };
+  if (!order) return <p>Cargando orden...</p>;
 
   return (
     <div className="payment-container">
@@ -117,42 +158,31 @@ const Payment = () => {
       </div>
 
       <div className="welcome-message">
-        <p>Selecciona tu método de pago favorito para continuar con tu pedido</p>
-        <p><strong>Total a pagar: $ {total.toLocaleString()}</strong></p> {/* <-- mostrar total */}
+        <p>Total a pagar: <strong>$ {order.total.toLocaleString()}</strong></p>
+        <p>Selecciona tu método de pago y confirma tu ubicación en el mapa</p>
+      </div>
+
+      <div className="map-container">
+        <div className="map-coords">
+          {coords ? `Lng: ${coords.lng.toFixed(5)}, Lat: ${coords.lat.toFixed(5)}` : "Selecciona tu ubicación"}
+        </div>
+        <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }}></div>
       </div>
 
       <div className="payment-options">
-        <div
-          className={`payment-card ${selectedMethod === "efectivo" ? "selected" : ""}`}
-          onClick={() => setSelectedMethod("efectivo")}
-        >
-          <img src={moneyImg} alt="Efectivo" />
-          <span>Efectivo</span>
-        </div>
-
-        <div
-          className={`payment-card ${selectedMethod === "nequi" ? "selected" : ""}`}
-          onClick={() => setSelectedMethod("nequi")}
-        >
-          <img src={nequiImg} alt="Nequi" />
-          <span>Nequi</span>
-        </div>
-
-        <div
-          className={`payment-card ${selectedMethod === "daviplata" ? "selected" : ""}`}
-          onClick={() => setSelectedMethod("daviplata")}
-        >
-          <img src={daviImg} alt="Daviplata" />
-          <span>Daviplata</span>
-        </div>
-
-        <div
-          className={`payment-card ${selectedMethod === "pse" ? "selected" : ""}`}
-          onClick={() => setSelectedMethod("pse")}
-        >
-          <img src={walletImg} alt="Pago con Datafono" />
-          <span>Pago con Datafono</span>
-        </div>
+        {["efectivo","nequi","daviplata","pse"].map((method) => {
+          const imgMap = { efectivo: moneyImg, nequi: nequiImg, daviplata: daviImg, pse: walletImg };
+          return (
+            <div
+              key={method}
+              className={`payment-card ${selectedMethod === method ? "selected" : ""}`}
+              onClick={() => setSelectedMethod(method)}
+            >
+              <img src={imgMap[method]} alt={method} />
+              <span>{method === "pse" ? "Datáfono" : method.charAt(0).toUpperCase() + method.slice(1)}</span>
+            </div>
+          );
+        })}
       </div>
 
       <button id="confirmBtn" className="google-btn" onClick={handleConfirm}>

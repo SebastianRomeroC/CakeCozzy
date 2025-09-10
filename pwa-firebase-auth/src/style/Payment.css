@@ -10,12 +10,12 @@ body {
 
 /* Contenedor de la pasarela */
 .payment-container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 50px auto;
   background-color: #fff0f5;
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   text-align: center;
 }
 
@@ -54,7 +54,7 @@ body {
 .header-buttons {
   display: flex;
   gap: 10px;
-  margin-left: auto; /* empuja los botones a la derecha */
+  margin-left: auto;
 }
 
 /* Botones estilo */
@@ -153,7 +153,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   font-size: 15px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .google-btn:hover {
@@ -166,12 +166,54 @@ body {
   color: #333;
 }
 
+/* Mapa */
+.map-container {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Coordenadas en tiempo real */
+.map-coords {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  z-index: 1;
+}
+
+/* Marker personalizado */
+.mapboxgl-marker {
+  background-color: #ff4081;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
 /* Responsivo */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .header-buttons {
     flex-direction: column;
     gap: 10px;
     margin-left: 0;
     align-items: center;
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  .payment-card {
+    width: 100px;
+    padding: 10px;
   }
 }

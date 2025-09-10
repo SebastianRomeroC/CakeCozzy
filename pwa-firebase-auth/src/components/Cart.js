@@ -1,8 +1,8 @@
+// src/components/Cart.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Cart.css";
 
-// Icono eliminar
 const DeleteIcon = () => (
   <svg
     width="20"
@@ -15,11 +15,16 @@ const DeleteIcon = () => (
   </svg>
 );
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [direccion, setDireccion] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Cargar carrito desde localStorage y normalizar precios
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("cartItems")) || [];
     const normalized = items.map((item) => ({
@@ -30,20 +35,17 @@ const Cart = () => {
     setCartItems(normalized);
   }, []);
 
-  // Guardar cambios en localStorage
   const saveCart = (items) => {
     localStorage.setItem("cartItems", JSON.stringify(items));
     setCartItems(items);
   };
 
-  // Incrementar cantidad
   const increment = (index) => {
     const items = [...cartItems];
     items[index].quantity += 1;
     saveCart(items);
   };
 
-  // Decrementar cantidad
   const decrement = (index) => {
     const items = [...cartItems];
     if (items[index].quantity > 1) {
@@ -52,22 +54,85 @@ const Cart = () => {
     }
   };
 
-  // Eliminar item
   const removeItem = (index) => {
     const items = [...cartItems];
     items.splice(index, 1);
     saveCart(items);
   };
 
-  // Calcular total
   const total = cartItems.reduce(
     (acc, item) => acc + (item.precio ?? 0) * (item.quantity ?? 1),
     0
   );
 
-  // Ir a checkout
-  const goPayment = () => {
-    navigate("/Pago");
+  const normalizeAddress = (dir) => {
+    let d = dir.trim();
+    d = d.replace(/^Cll/i, "Calle");
+    d = d.replace(/\s+/g, " ");
+    if (!d.toLowerCase().includes("bogota")) d += ", Bogotá";
+    if (!d.toLowerCase().includes("colombia")) d += ", Colombia";
+    return d;
+  };
+
+  const geocode = async (dir) => {
+    const query = encodeURIComponent(normalizeAddress(dir));
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${MAPBOX_TOKEN}&limit=1`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(
+        `Error conectando a Mapbox: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const data = await res.json();
+    if (!data.features || !data.features.length)
+      throw new Error(
+        `Dirección no encontrada: "${dir}". Intenta escribirla completa incluyendo ciudad y país.`
+      );
+
+    const [lng, lat] = data.features[0].center;
+    return { lng, lat, placeName: data.features[0].place_name };
+  };
+
+  const goPayment = async () => {
+    setError(null);
+    if (!direccion) {
+      setError("Por favor ingresa tu dirección de entrega.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const geo = await geocode(direccion);
+
+      const body = {
+        items: cartItems,
+        total,
+        direccion: geo.placeName,
+        location: { coordinates: [geo.lng, geo.lat] },
+      };
+
+      const res = await fetch(`${API_BASE}/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Error creando la orden");
+      }
+
+      // 🔹 Navegar usando el _id de la orden creada
+      navigate(`/pago/${data._id}`);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Error creando la orden");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,7 +157,10 @@ const Cart = () => {
                   <span>{item.quantity}</span>
                   <button onClick={() => increment(index)}>+</button>
                 </div>
-                <button className="btn-remove" onClick={() => removeItem(index)}>
+                <button
+                  className="btn-remove"
+                  onClick={() => removeItem(index)}
+                >
                   <DeleteIcon />
                 </button>
               </div>
@@ -101,8 +169,23 @@ const Cart = () => {
 
           <div className="cart-footer">
             <p className="cart-total">Total: $ {total.toLocaleString()}</p>
-            <button className="btn-checkout" onClick={goPayment}>
-              Pagar
+
+            <input
+              type="text"
+              placeholder="Dirección de entrega"
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
+              className="direccion-input"
+            />
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
+            <button
+              className="btn-checkout"
+              onClick={goPayment}
+              disabled={loading}
+            >
+              {loading ? "Procesando..." : "Confirmar y pagar"}
             </button>
           </div>
         </>

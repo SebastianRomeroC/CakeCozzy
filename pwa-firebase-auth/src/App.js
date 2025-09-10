@@ -22,7 +22,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 
         {/*Pagos */}
-        <Route path="/pago" element={<Payment />} />
+        <Route path="/pago/:orderId" element={<Payment />} />
 
         {/*Carrito */}
         <Route path="/carrito" element={<Cart />} />
