@@ -75,9 +75,8 @@
   color: #880e4f;
 }
 
-/* Inputs y Select */
-.login-form input,
-.login-form select {
+/* Inputs */
+.login-form input {
   width: 100%;
   padding: 0.6rem 0.8rem;
   margin-bottom: 1rem;
@@ -87,8 +86,7 @@
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.login-form input:focus,
-.login-form select:focus {
+.login-form input:focus {
   border-color: #f06292;
   box-shadow: 0 0 5px rgba(240, 98, 146, 0.5);
   outline: none;
