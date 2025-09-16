@@ -1,31 +1,55 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"; // <-- Aquí agregamos Navigate
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import Payment from "./components/Payment";
 import Cart from "./components/Cart";
-import AuthForm from "./components/AuthForm";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./i18n";
+import Payment from "./components/Payment";
+import AdminDashboard from "./components/AdminDashboard";
+import RoleRoute from "./components/RoleRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta principal redirige a login */}
-        <Route path="/" element={<Navigate to="/login" />} />
-
-        {/* Login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Home */}
-        <Route path="/home" element={<Home />} />
+        {/* Usuario normal */}
+        <Route
+          path="/home"
+          element={
+            <RoleRoute requiredRole="user">
+              <Home />
+            </RoleRoute>
+          }
+        />
 
-        {/*Pagos */}
-        <Route path="/pago/:orderId" element={<Payment />} />
+        <Route
+          path="/carrito"
+          element={
+            <RoleRoute requiredRole="user">
+              <Cart />
+            </RoleRoute>
+          }
+        />
 
-        {/*Carrito */}
-        <Route path="/carrito" element={<Cart />} />
+        <Route
+          path="/pago/:orderId"
+          element={
+            <RoleRoute requiredRole="user">
+              <Payment />
+            </RoleRoute>
+          }
+        />
+
+        {/* Admin */}
+        <Route
+          path="/admin"
+          element={
+            <RoleRoute requiredRole="admin">
+              <AdminDashboard />
+            </RoleRoute>
+          }
+        />
       </Routes>
     </Router>
   );

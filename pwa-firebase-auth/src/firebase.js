@@ -17,7 +17,6 @@ import {
   serverTimestamp
 } from "firebase/firestore";
 
-// ⛳️ Reemplaza por tus credenciales reales
 const firebaseConfig = {
   apiKey: "AIzaSyD3gkePXhtdt9PFbxadzvW7qwtDCLXHKTg",
   authDomain: "cakecozzy.firebaseapp.com",
@@ -27,7 +26,6 @@ const firebaseConfig = {
   appId: "1:235510332924:web:0d399342e0b447baa60679",
   measurementId: "G-D350Y9HPE0"
 };
-
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -42,16 +40,16 @@ setPersistence(auth, browserLocalPersistence).catch((e) =>
 // Helpers de errores legibles
 const asCode = (e) => (e && e.code) || "error/unknown";
 
-// --- Email+Password: REGISTRO (con nombre y estado civil)
-export async function registerWithEmail(email, password, name, maritalStatus) {
+// --- Email+Password: REGISTRO (con nombre)
+export async function registerWithEmail(email, password, name) {
   const cred = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(cred.user, { displayName: name || "" });
 
-  // Guarda extras
+  // Guarda datos en Firestore
   await setDoc(doc(db, "users", cred.user.uid), {
     name: name || "",
-    maritalStatus: maritalStatus || "",
     email,
+    role: "user", // por defecto
     createdAt: serverTimestamp(),
   });
 
@@ -67,12 +65,19 @@ export async function loginWithEmail(email, password) {
 // --- Google: LOGIN
 export async function loginWithGoogle() {
   const { user } = await signInWithPopup(auth, googleProvider);
-  // merge mínimos
+
+  // Crea/actualiza documento de usuario
   await setDoc(
     doc(db, "users", user.uid),
-    { name: user.displayName || "", email: user.email || "", updatedAt: serverTimestamp() },
+    {
+      name: user.displayName || "",
+      email: user.email || "",
+      role: "user",
+      updatedAt: serverTimestamp(),
+    },
     { merge: true }
   );
+
   return user;
 }
 
@@ -81,5 +86,5 @@ export async function logout() {
   await signOut(auth);
 }
 
-// Exports agrupados (compatibilidad con tus imports)
+// Export default para compatibilidad
 export default app;

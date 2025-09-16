@@ -1,0 +1,349 @@
+/* ===========================
+   🔹 CONTENEDOR PRINCIPAL
+=========================== */
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: "Quicksand", Arial, sans-serif;
+  background: #fcd6e0; /* mismo fondo que home */
+}
+
+/* ===========================
+   🔹 SIDEBAR (menú lateral)
+=========================== */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #ff88a0, #fcd6e0);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 3px solid #f7a8b8;
+  box-shadow: 4px 0 10px rgba(255, 136, 160, 0.3);
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.sidebar-logo {
+  width: 90px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(255, 136, 160, 0.4);
+  margin-bottom: 10px;
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+}
+
+.sidebar nav button {
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #d63384;
+  background: #fff;
+  transition: all 0.3s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.sidebar nav button:hover {
+  background: #ffe1eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 136, 160, 0.3);
+}
+
+.sidebar nav button.active {
+  background: #d63384;
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.logout-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f56565, #f77c7c);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #e53e3e, #f56565);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+}
+
+/* ===========================
+   🔹 CONTENIDO PRINCIPAL
+=========================== */
+.content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #d63384;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   🔹 FORMULARIOS CRUD
+=========================== */
+.form-producto {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.form-producto input {
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #f7a8b8;
+  outline: none;
+  font-size: 14px;
+  transition: border 0.3s, box-shadow 0.3s;
+  background: #fff;
+}
+
+.form-producto input:focus {
+  border-color: #ff88a0;
+  box-shadow: 0 0 8px rgba(255, 136, 160, 0.3);
+}
+
+.form-producto button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f8bcd0, #fcd6e0);
+  color: #d63384;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+
+.form-producto button:hover {
+  background: linear-gradient(135deg, #f59fc2, #f8bcd0);
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   🔹 PRODUCTOS (Cards)
+=========================== */
+.lista-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.producto-card {
+  background: #fff;
+  border: 2px solid #f7a8b8;
+  border-radius: 15px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(255, 136, 160, 0.3);
+}
+
+.producto-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.producto-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d63384;
+  margin: 6px 0;
+}
+
+.producto-card p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.producto-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.producto-actions button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.producto-actions .edit-btn {
+  background: #ffe1eb;
+  color: #d63384;
+}
+
+.producto-actions .edit-btn:hover {
+  background: #d63384;
+  color: #fff;
+}
+
+.producto-actions .delete-btn {
+  background: #fcd6e0;
+  color: #a50032;
+}
+
+.producto-actions .delete-btn:hover {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+/* ===========================
+   🔹 LISTA DE PEDIDOS
+=========================== */
+.lista-pedidos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-pedidos li {
+  background: #fff;
+  border: 2px solid #f7a8b8;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.lista-pedidos li p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.lista-pedidos select {
+  margin-top: 10px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 2px solid #f7a8b8;
+  outline: none;
+}
+
+/* ===========================
+   🔹 ESTADÍSTICAS (Cards)
+=========================== */
+.estadisticas-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.stats-card {
+  background: #fff;
+  border: 2px solid #f7a8b8;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(255, 136, 160, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(255, 136, 160, 0.3);
+}
+
+.stats-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d63384;
+  margin-bottom: 8px;
+}
+
+.stats-card p {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ===========================
+   🔹 RESPONSIVO
+=========================== */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    border-right: none;
+    border-bottom: 3px solid #f7a8b8;
+    box-shadow: 0 4px 8px rgba(255, 136, 160, 0.3);
+  }
+
+  .logo-container {
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .logout-btn {
+    margin-top: 0;
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .form-producto {
+    flex-direction: column;
+  }
+}
