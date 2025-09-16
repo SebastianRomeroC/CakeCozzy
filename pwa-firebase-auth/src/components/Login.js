@@ -1,3 +1,4 @@
+// src/components/Login.js
 import { useTranslation } from "react-i18next";
 import {
   auth,
@@ -8,7 +9,7 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useUserRole } from "../hooks/useUserRole"; // 👈 Hook para rol
+import { useUserRole } from "../hooks/useUserRole"; // Hook para rol
 import "../style/Login.css";
 import logo from "../img/logoCakecozzy.png";
 
@@ -16,7 +17,7 @@ const Login = () => {
   const { t, i18n } = useTranslation();
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  const { role, loading: roleLoading } = useUserRole(); // 👈 Estado del rol
+  const { role, loading: roleLoading } = useUserRole(); // Estado del rol
 
   const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState("");
@@ -90,6 +91,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-card">
+        {/* Idiomas */}
         <div className="language-switcher">
           <button
             onClick={() => handleLanguageChange("en")}
@@ -129,23 +131,17 @@ const Login = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder={t("namePlaceholder", {
-                  defaultValue: "Tu nombre",
-                })}
+                placeholder={t("namePlaceholder", { defaultValue: "Tu nombre" })}
               />
             </>
           )}
 
-          <label>
-            {t("email", { defaultValue: "Correo Electrónico" })}
-          </label>
+          <label>{t("email", { defaultValue: "Correo Electrónico" })}</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder={t("emailPlaceholder", {
-              defaultValue: "correo@dominio.com",
-            })}
+            placeholder={t("emailPlaceholder", { defaultValue: "correo@dominio.com" })}
           />
 
           <label>{t("password", { defaultValue: "Contraseña" })}</label>
@@ -153,30 +149,25 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder={t("passwordPlaceholder", {
-              defaultValue: "Mínimo 6 caracteres",
-            })}
+            placeholder={t("passwordPlaceholder", { defaultValue: "Mínimo 6 caracteres" })}
           />
 
           {error && <div className="error-msg">{error}</div>}
 
           <button type="submit" className="primary-btn">
             {isRegistering
-              ? t("register")
+              ? t("register", { defaultValue: "Registrarse" })
               : t("signIn", { defaultValue: "Ingresar" })}
           </button>
+
           <button
             type="button"
             className="link-btn"
             onClick={() => setIsRegistering(!isRegistering)}
           >
             {isRegistering
-              ? t("alreadyAccount", {
-                  defaultValue: "¿Ya tienes cuenta? Inicia sesión",
-                })
-              : t("noAccount", {
-                  defaultValue: "¿No tienes cuenta? Regístrate",
-                })}
+              ? t("alreadyAccount", { defaultValue: "¿Ya tienes cuenta? Inicia sesión" })
+              : t("noAccount", { defaultValue: "¿No tienes cuenta? Regístrate" })}
           </button>
 
           <button
@@ -184,9 +175,7 @@ const Login = () => {
             onClick={handleGoogleLogin}
             className="google-btn"
           >
-            {t("signInWithGoogle", {
-              defaultValue: "Iniciar sesión con Google",
-            })}
+            {t("signInWithGoogle", { defaultValue: "Iniciar sesión con Google" })}
           </button>
         </form>
       </div>
